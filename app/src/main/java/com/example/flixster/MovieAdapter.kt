@@ -1,6 +1,7 @@
 package com.example.flixster
 
 import android.content.Context
+import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class MovieAdapter(private val context: Context, private val movies: List<Movie>) :
+class MovieAdapter(
+    private val context: Context,
+    private val movies: List<Movie>,
+    private var orientation: Int
+) :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -19,7 +24,7 @@ class MovieAdapter(private val context: Context, private val movies: List<Movie>
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movie = movies[position]
-        holder.bind(movie)
+        holder.bind(movie, orientation)
     }
 
     override fun getItemCount() = movies.size
@@ -30,10 +35,14 @@ class MovieAdapter(private val context: Context, private val movies: List<Movie>
         private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
         private val tvOverview = itemView.findViewById<TextView>(R.id.tvOverview)
 
-        fun bind(movie : Movie) {
+        fun bind(movie: Movie, orientation: Int) {
             tvTitle.text = movie.title
             tvOverview.text = movie.overview
-            Glide.with(context).load(movie.posterImageUrl).into(ivPoster)
+
+            Glide.with(context).load(
+                if (orientation == Configuration.ORIENTATION_PORTRAIT) movie.posterImageUrl else movie.backdropImageUrl
+            ).placeholder(R.drawable.placeholder_small
+            ).into(ivPoster) // this is where i should detect orientation
         }
     }
 }
