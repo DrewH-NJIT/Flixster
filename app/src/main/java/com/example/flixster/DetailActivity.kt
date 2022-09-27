@@ -14,11 +14,9 @@ import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerView
 import okhttp3.Headers
 
-private const val YOUTUBE_API_KEY = "AIzaSyBjwMq3Sv9aarFqxSUjICdlqaiC_I2UTjU"
 
 // note the %d for TRAILERS_URL
-private const val TRAILERS_URL =
-    "https://api.themoviedb.org/3/movie/%d/videos?api_key=2455f04e5ef435d4df027f11154a601d"
+
 private const val TAG = "DetailActivity"
 
 class DetailActivity : YouTubeBaseActivity() {
@@ -46,6 +44,7 @@ class DetailActivity : YouTubeBaseActivity() {
 //        Toast.makeText(applicationContext,"hit1", Toast.LENGTH_SHORT).show()
 
         val client = AsyncHttpClient()
+        val TRAILERS_URL = "https://api.themoviedb.org/3/movie/%d/videos?api_key=${getString(R.string.themoviedb_api_key)}"
         client.get(TRAILERS_URL.format(movie.movieId), object : JsonHttpResponseHandler() {
 
             override fun onFailure(
@@ -80,6 +79,8 @@ class DetailActivity : YouTubeBaseActivity() {
     }
 
     private fun initializeYoutube(youtubeKey: String, rating: Float) {
+         val YOUTUBE_API_KEY = getString(R.string.youtube_api_key)
+
         ytPlayerView.initialize(YOUTUBE_API_KEY, object : YouTubePlayer.OnInitializedListener {
             override fun onInitializationSuccess(
                 provider: YouTubePlayer.Provider?,

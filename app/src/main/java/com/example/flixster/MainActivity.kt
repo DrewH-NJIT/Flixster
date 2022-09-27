@@ -15,9 +15,6 @@ import org.json.JSONException
 
 
 private const val TAG = "MainActivity"
-private const val NOW_PLAYING_URL =
-    "https://api.themoviedb.org/3/movie/now_playing?api_key=2455f04e5ef435d4df027f11154a601d"
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,6 +32,8 @@ class MainActivity : AppCompatActivity() {
         rvMovies.layoutManager = LinearLayoutManager(this)
 
         val client = AsyncHttpClient()
+        val NOW_PLAYING_URL = "https://api.themoviedb.org/3/movie/now_playing?api_key=${getString(R.string.themoviedb_api_key)}"
+
         client.get(NOW_PLAYING_URL, object : JsonHttpResponseHandler() {
             override fun onFailure(statusCode: Int, headers: Headers?, response: String?, throwable: Throwable?) {
                 Log.e(TAG, "onFailure $statusCode")
