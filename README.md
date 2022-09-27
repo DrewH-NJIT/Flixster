@@ -27,6 +27,9 @@ Flix is an app that allows users to browse movies from the [The Movie Database A
 ### Notes
 
 Describe any challenges encountered while building the app.
+- Getting imageview and youtubeplayerview to transition correctly was not immediately obvious.
+- Glide library's newest version does not have a RoundedCorners(radius,margin) function. But rather a RoundedCorners(radius) instead
+- youtubeplayer.loadvideo() and youtubeplayer.play do the exact opposite of what you'd expect them to do.
 
 ## Open-source libraries used
 - [Android Async HTTP](https://github.com/codepath/CPAsyncHttpClient) - Simple asynchronous HTTP requests with JSON parsing
