@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.codepath.asynchttpclient.AsyncHttpClient
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         rvMovies = findViewById(R.id.rvMovies)
 
-        val movieAdapter = MovieAdapter(this, movies, resources.configuration.orientation)
+        val movieAdapter = MovieAdapter(this, movies, resources.configuration.orientation, this)
 
         rvMovies.adapter = movieAdapter
         rvMovies.layoutManager = LinearLayoutManager(this)
@@ -54,7 +55,6 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }
-
         })
     }
 }
